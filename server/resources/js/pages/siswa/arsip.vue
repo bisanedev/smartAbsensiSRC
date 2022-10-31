@@ -1,0 +1,442 @@
+<template>
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">Arsip Siswa</h1>
+        </div>
+        <div class="row row-cards row-deck">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="col-2" style="padding-left:0px;">
+                            <v-select :options="kelasData" label="nama" :reduce="nama => nama.id" v-model="kelas" placeholder="Semua Kelas" @input="onKelas($event)"></v-select>
+                        </div>
+                        <div class="card-options">
+                           <select class="form-control" v-model="perPage" @change="onChange($event)" style="width: 60px;margin-right:10px;">
+                                <option>5</option>
+                                <option>10</option>
+                                <option>15</option>
+                            </select>
+                            <div class="input-group" style="width:260px;">
+                            <input type="text" class="form-control" v-model="search" v-on:keyup="searchEnter" placeholder="Cari Nama ">
+                            <button class="btn bg-transparent" @click="refresh()" style="margin-left: -40px; z-index: 100;">
+                                <i class="fe fe-x text-muted"></i>
+                            </button>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" @click="cari()">
+                                    <i class="fe fe-search"></i>
+                                </button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="padding:0 !important;">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-vcenter text-nowrap card-table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th class="text-center w-1">#</th>
+                                        <th class="text-center w-1">
+                                        <input type="checkbox" v-model="selectAll" style="top: 2px; position: relative;left: 8px;" number :disabled="discheck">
+                                        </th>
+                                        <th class="text-center w-1" @click="sortByColumn('kelas_id')">
+                                        Kelas
+                                        <span v-if="'kelas_id' === sortedColumn">
+                                        <i v-if="order === 'asc' " class="fe fe-arrow-up"></i>
+                                        <i v-else class="fe fe-arrow-down"></i>
+                                        </span>
+                                        </th>                                      
+                                        <th class="text-center w-1"><i class="icon-people"></i></th>
+                                        <th v-for="column in columns" :key="column" @click="sortByColumn(column)">
+                                            {{ column | columnHead }} Siswa
+                                        <span v-if="column === sortedColumn">
+                                        <i v-if="order === 'asc' " class="fe fe-arrow-up"></i>
+                                        <i v-else class="fe fe-arrow-down"></i>
+                                        </span>
+                                        </th>
+                                        <th class="text-center" @click="sortByColumn('status')">
+                                        Status
+                                        <span v-if="'status' === sortedColumn">
+                                        <i v-if="order === 'asc' " class="fe fe-arrow-up"></i>
+                                        <i v-else class="fe fe-arrow-down"></i>
+                                        </span>
+                                        </th> 
+                                        <th class="text-center" @click="sortByColumn('jenis')">
+                                        Jenis Kelamin
+                                        <span v-if="'jenis' === sortedColumn">
+                                        <i v-if="order === 'asc' " class="fe fe-arrow-up"></i>
+                                        <i v-else class="fe fe-arrow-down"></i>
+                                        </span>
+                                        </th>                                            
+                                        <th class="text-center">
+                                          <div class="item-action dropdown">
+                                          <a href="javascript:void(0)" data-toggle="dropdown" class="icon" style="margin-left: 13px;color:#fff !important;" :class="{notactive: disable}">
+                                            <i class="fe fe-grid"></i>
+                                          </a>
+                                          <div class="dropdown-menu dropdown-menu-right">
+                                              <button type="button" @click="MultiSelect()" class="dropdown-item" ><i class="fe fe-edit"></i> Edit </button>
+                                              <button type="button" @click="MultiDelete()" class="dropdown-item" ><i class="fe fe-trash"></i> Hapus </button>
+                                          </div>
+                                          </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="" v-if="tableData.length === 0">
+                                        <td class="lead text-center" :colspan="columns.length + 7">No data found.</td>
+                                    </tr>
+                                    <tr v-else v-for="(data, key1) in tableData" :key="data.id">
+                                        <td class="text-center">{{ serialNumber(key1) }}</td>
+                                        <td class="text-center">
+                                    <input type="checkbox" v-model="selected" :value="data.id" style="top: 2px; position: relative;left: 8px;" number :disabled="discheck">
+                                        </td>
+                                        <td class="text-center" v-if="data.Kelas.nama">
+                                        {{ data.Kelas.nama }}
+                                        </td>
+                                        <td v-else>
+                                            <span class="badge badge-secondary">None</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <div v-if="data.foto" class="avatar d-block avfoto" v-bind:style="{ 'background-image':'url(./storage/siswa/'+ data.foto +')' }">                             
+                                            </div>
+                                            <div v-else-if="data.jenis == 'Perempuan'" class="avatar d-block avfoto" style="background-image: url(./assets/images/cewek.png)">
+                                            </div>
+
+                                            <div v-else class="avatar d-block avfoto" style="background-image: url(./assets/images/cowok.png)">
+                                            </div>
+                                        </td>
+                                        <td>           
+                                        {{ data.nama }}
+                                        </td>
+                                        <td class="text-center" v-if="data.status === 'l'">           
+                                          <span class="badge badge-primary">Lulus</span>
+                                        </td>
+                                        <td class="text-center" v-else-if="data.status === 'p'">
+                                          <span class="badge badge-warning">Pindah Sekolah</span>
+                                        </td>
+                                        <td class="text-center" v-else-if="data.status === 'm'">
+                                          <span class="badge badge-secondary">Meninggal</span>
+                                        </td>                                    
+                                        <td class="text-center" v-else="data.status === 'd'">
+                                          <span class="badge badge-danger">Drop Out</span>
+                                        </td>   
+                                        <td class="text-center">           
+                                        {{ data.jenis }}
+                                        </td>                                       
+                                        <td class="text-center">
+                                            <div class="item-action dropdown">
+                                                <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-grid"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <button type="button" @click="uploadModal(data)" class="dropdown-item" ><i class="fe fe-image"></i> Foto </button>
+                                                    <button type="button" @click="showEditModal(data)" class="dropdown-item"><i class="fe fe-edit"></i> Edit 
+                                                    </button> 
+                                                    <div class="dropdown-divider"></div>
+                                                    <button class="dropdown-item" @click="showDeleteDialog(data.id,data.nama)"><i class="fe fe-trash"></i> Delete </a> </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                      <span v-if="pagination.total_record" style="position: absolute;bottom: 20px;"> &nbsp; <i>Total Data : {{ pagination.total_record }} entries.</i></span>
+                        <nav v-if="pagination && tableData.length > 0">
+                        <ul class="pagination float-right">
+                            <li class="page-item" :class="{'disabled' : currentPage === 1}">
+                              <a class="page-link" href="#" @click.prevent="changePage(1)">
+                                <i class="fe fe-chevrons-left"></i>
+                              </a>
+                            </li>
+                            <li class="page-item" :class="{'disabled' : currentPage === 1}">
+                              <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)"><i class="fe fe-chevron-left"></i></a>
+                            </li>                            
+                            <li v-for="page in pagesNumber" v-if="Math.abs(page - currentPage) < 3 || page == pagesNumber - 1 || page == 0" class="page-item" :class="{'active': page == pagination.page}">
+                            <a href="javascript:void(0)" @click.prevent="changePage(page)" class="page-link">{{ page }}</a>
+                            </li>                            
+                            <li class="page-item" :class="{'disabled': currentPage === pagination.total_page}">
+                            <a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)"><i class="fe fe-chevron-right"></i></a>
+                            </li>
+                            <li class="page-item" :class="{'disabled': currentPage === pagination.total_page}">
+                            <a class="page-link" href="#" @click.prevent="changePage(pagination.total_page)"><i class="fe fe-chevrons-right"></i></a>
+                            </li>
+                        </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <siswa-upload-modal/>
+        <siswa-add-modal/>
+        <siswa-edit-modal/>
+        <siswa-multi-modal/>
+    </div>
+</template>
+<script type="application/javascript">
+
+import SiswaUploadModal from './SiswaUploadModal.vue'
+import SiswaAddModal from './SiswaAddModal.vue'
+import SiswaEditModal from './SiswaEditModal.vue'
+import SiswaMultiModal from './SiswaMultiModal.vue'
+
+export default {
+  components : {
+    SiswaUploadModal,
+    SiswaAddModal,    
+    SiswaEditModal,
+    SiswaMultiModal,   
+  },
+  data() {
+    return { 
+      disable: true,
+      discheck:true,
+      columns: ['nama'],
+      kelas:null,
+      kelasData:[],
+      search:'',
+      tableData: [],
+      url: window.location.origin,
+      pagination:[],
+      selected: [],
+      offset: 4,
+      currentPage: 1,
+      perPage: '5',
+      sortedColumn: 'kelas_id',
+      order: 'desc'
+    }
+  },
+  created: function() {
+    this.fetchData()
+    this.fetchKelas()
+  },
+  watch: {
+    kelas(){
+      if(this.kelas === null){this.discheck = true;this.selected=[]}else{this.discheck = false}
+    },
+    selected(){
+        if (this.selected.length===0){ this.disable = true} else { this.disable = false}
+      }
+  },
+  computed: {
+    selectAll: {
+            get: function () {
+                return this.tableData ? this.selected.length == this.tableData.length : false;
+            },
+            set: function (value) {
+                var selected = [];
+
+                if (value) {
+                    this.tableData.forEach(function (data) {
+                        selected.push(data.id);
+                    });
+                }
+
+                this.selected = selected;
+            }
+        },
+    /**
+     * Get the pages number array for displaying in the pagination.
+     * */
+    pagesNumber() {
+      if (this.pagination.offset == undefined || this.pagination.offset == null) {
+        return []
+      }
+      let from = this.pagination.page - this.offset
+      if (from < 1) {
+        from = 1
+      }
+      let to = from + (this.offset * 2)
+      if (to >= this.pagination.total_page) {
+        to = this.pagination.total_page
+      }
+      let pagesArray = []
+      for (let page = from; page <= to; page++) {
+        pagesArray.push(page)
+      }
+      return pagesArray
+    },
+    /**
+     * Get the total data displayed in the current page.
+     * */
+    totalData() {
+      return (this.pagination.offset - this.pagination.total_record) + 1
+    }
+  },
+  methods: {
+    fetchData() {
+      let dataFetchUrl = `${this.url}/api/arsip/siswa?page=${this.currentPage}&search=${this.search}&order=${this.sortedColumn}&by=${this.order}&limit=${this.perPage}`
+        axios.get(dataFetchUrl+"&kelas="+this.kelas)
+        .then(response => { 
+          this.pagination = response.data
+          this.tableData = response.data.records
+        }).catch(error => this.tableData = [])
+    },
+    fetchKelas(){
+      axios.get(window.location.origin+"/api/allkelas")
+      .then(response => {           
+          this.kelasData = response.data.data
+        }).catch(error => this.kelasData = [])
+    },
+    /**
+     * Get the serial number.
+     * @param key
+     * */
+    serialNumber(key) {
+      return (this.currentPage - 1) * this.perPage + 1 + key
+    },
+    /**
+     * Change the page.
+     * @param pageNumber
+     */
+    changePage(pageNumber) {
+      this.currentPage = pageNumber
+      this.fetchData();
+    },
+    /** perpage ***/
+    onChange(event) {
+      this.currentPage = 1;
+      this.fetchData();
+    },
+     /** Kelas ***/
+    onKelas(event) {
+      this.currentPage=1;
+      this.selected=[]
+      this.fetchData()            
+    },
+    /** enter search **/
+    searchEnter:function(e){
+      if (e.keyCode === 13) {
+        this.currentPage = 1;
+        this.fetchData() 
+      }
+    },
+    /** cari **/
+    cari(){
+      this.currentPage = 1;
+      this.fetchData()
+    },
+    /** refresh **/
+    refresh(){
+      this.search = "";
+      this.fetchData();     
+    },    
+    /** Upload modal **/
+    uploadModal(data){      
+      this.$modal.show('siswa-upload',{wow:data});
+    },
+    /** multi select modal **/
+    MultiSelect(){
+      this.$modal.show('siswa-multi');      
+    },
+    /** User ADD **/
+    showAddModal(){
+      this.$modal.show('siswa-add');
+    },
+    /** edit modal **/
+    showEditModal(data){      
+      this.$modal.show('siswa-edit',{wow:data});
+    },
+    /** multi hapus**/
+    MultiDelete() {
+      this.$modal.show('dialog', {
+        title: 'Konfirmasi Multi Hapus',
+        text: 'Apakah Anda benar-benar ingin menghapus?',
+        buttons: [
+          {
+            title: 'Cancel',            
+            handler: () => {
+              this.$modal.hide('dialog')
+            }
+          },
+          {
+            title: 'Delete',
+            default: true,
+            handler: () => {                          
+              axios.post(this.url+'/api/siswahapus',{selected:this.selected})
+                .then(response => {                
+                  if(response.data.status == "success")
+                  { 
+                    //console.log('berhasil dihapus');                       
+                    this.fetchData();
+                    this.$modal.hide('dialog');
+                    this.$notify({
+                      group: 'notifikasi',                  
+                      title: 'Delete Sukses',
+                      type: 'success',
+                      text: 'Data Siswa Berhasil Di Hapus'
+                    });  
+                  }
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+              //-------
+            }
+          }
+        ]
+      })
+    },
+    /** pass variable to modal **/ 
+    showDeleteDialog (id,username) {
+      this.$modal.show('dialog', {
+        title: 'Konfirmasi',
+        text: 'Apakah Anda benar-benar ingin menghapus? Nama : '+username,
+        buttons: [
+          {
+            title: 'Cancel',            
+            handler: () => {
+              this.$modal.hide('dialog')
+            }
+          },
+          {
+            title: 'Delete',
+            default: true,
+            handler: () => {                          
+              axios.delete(this.url+'/api/siswa/'+id)
+                .then(response => {                
+                  if(response.data.status == "success")
+                  { 
+                    //console.log('berhasil dihapus');
+                       
+                    this.fetchData();
+                    this.$modal.hide('dialog');
+                    this.$notify({
+                      group: 'notifikasi',                  
+                      title: 'Delete Sukses',
+                      type: 'success',
+                      text: 'Data User '+username+' Berhasil Di Hapus'
+                    });  
+                  }
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+              //-------
+            }
+          }
+        ]
+      })
+    },
+    /**
+     * Sort the data by column.
+     * */
+    sortByColumn(column) {
+      if (column === this.sortedColumn) {
+        this.order = (this.order === 'asc') ? 'desc' : 'asc'
+      } else {
+        this.sortedColumn = column
+        this.order = 'asc'
+      }
+      this.fetchData()
+    }
+  },
+  filters: {
+    columnHead(value) {
+      return value.split('_').join(' ').toUpperCase()
+    }
+  } 
+
+
+//end script  
+}
+</script>

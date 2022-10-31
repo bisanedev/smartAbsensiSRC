@@ -1,0 +1,4 @@
+-> bundle
+go-bindata public/...
+-> use mingw
+windres -o main-res.syso main.rc && go build -ldflags="-s -w"

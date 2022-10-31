@@ -1,0 +1,303 @@
+@import 'variables';
+@import '~bootstrap/scss/bootstrap';
+@import 'tabler/dashboard';
+@import 'scheduler';
+@import 'absens';
+@import 'laporan';
+@import 'rekap';
+@import 'custom-select';
+@import '~vue-select/src/scss/vue-select.scss';
+
+// my base color
+:root {
+  //--mycolor:#1e9a5b;
+  --mycolor:#3366FF;
+}
+/** link modal table **/
+.linkmodal{
+  text-decoration: none;
+  color:#495057;
+}
+.linkmodal:hover{
+  color: var(--mycolor);
+}
+/** dropdown meu **/
+.dropdown-item.active, .dropdown-item:active {
+	background-color: var(--mycolor) !important;
+}
+.card {
+	background-color: #f9f9f9 !important;
+}
+// calendar dan time
+.mx-datepicker {width: 100% !important;}
+.mx-input {	height: 38px !important;}
+.mx-time-list li:hover, .mx-time-column li:hover {
+  background-color: var(--mycolor) !important;
+  color: white;
+}
+.mx-time-list li.active, .mx-time-column li.active {
+    color: var(--mycolor) !important;    
+}
+.mx-time-list li:hover, .mx-time-column li:hover {
+    color: white !important;
+}
+.mx-input:hover, .mx-input:focus {
+    border-color: var(--mycolor) !important;
+}
+.mx-calendar-content .cell.active {
+	background-color: var(--mycolor) !important;
+  color: white !important;
+}
+.mx-table-date .today {
+    color: var(--mycolor) !important;
+}
+.mx-calendar-content .cell:hover {
+    background-color: var(--mycolor) !important;
+    opacity: .6;
+    color: white !important;
+}
+.mx-time {
+  width: 180px !important;
+}
+//vue select
+.vs__dropdown-toggle{
+  padding: 0 0 3px 0 !important;
+}
+.vs__actions{
+  padding: 1px 6px 0 1px !important;
+}
+.vs__clear{
+  font-size: 13px;
+  margin-top: 0px;
+  margin-right: 3px !important;
+  color:rgba(60, 60, 60, 0.88);
+}
+.vs__dropdown-option--highlight {
+  background: var(--mycolor) !important;  
+}
+.vs__open-indicator{
+	margin-top: 4px;
+  font-size: 18px !important;
+}
+.vs__search, .vs__search:focus{
+	line-height: 1.8 !important;
+}
+//table
+.table .thead-dark th, .text-wrap table .thead-dark th {
+	color: #fff;
+	background-color: var(--mycolor) !important;
+	border-color: var(--mycolor) !important;
+	border-top-color: rgb(25, 103, 181);
+}
+// padding
+.table td{
+	padding: 0.5rem !important;
+}
+// avatar foto table
+.avfoto{
+	width: 4rem !important;
+	height: 5.8rem !important;
+	background-position-y: 0px !important;
+}
+
+.form-row label {
+	margin-bottom: 0.2rem !important;
+	margin-top: 0.2rem !important;
+}
+
+//pagination
+ul.pagination {
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+}
+
+.card-header-modal{
+	padding: 0rem 0.9rem 0rem 0.9rem;
+}
+
+.card-body-modal{
+	padding: 0.5rem 0.7rem 0.5rem 0.7rem !important;
+}
+//color picker
+.vc-chrome {
+	position: absolute;
+	top: 35px;
+	right: 0;
+	z-index: 9;
+}
+.current-color {
+	display: inline-block;
+	background-color: #000;
+	cursor: pointer;
+}
+.mapel-label{
+	height: 10px;
+	width: 25px;
+	display: inline-block;
+	position: absolute;
+	margin-top: 3px;
+	margin-left: 5px;
+}
+//input number
+input[type="number"] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.number-input {
+  border: 1px solid #ddd;
+  display: inline-flex;
+  width: 100%;
+}
+
+.number-input,
+.number-input * {
+  box-sizing: border-box;
+}
+
+.number-input button {
+  outline:none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 36px;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+}
+
+.number-input button:before,
+.number-input button:after {
+  display: inline-block;
+  position: absolute;
+  content: '';
+  width: 1rem;
+  height: 2px;
+  background-color: #495057;
+  transform: translate(-50%, -50%);
+}
+.number-input button.plus:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.number-input input[type=number] {
+  font-family: sans-serif;  
+  width: 100%;
+  padding: .5rem;
+  border: solid #ddd;
+  border-width: 0 1px;
+  font-size: 1.5rem;
+  height: 36px;
+  font-weight: bold;
+  text-align: center;
+  color: #495057;
+}
+//primary button
+.custom-switch-input:checked ~ .custom-switch-indicator {
+    background:  var(--mycolor) !important;
+}
+.badge-primary {
+    background-color: var(--mycolor) !important;
+}
+.btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.dropdown-toggle:focus {
+ box-shadow: 0 0 0 2px var(--mycolor) !important;
+ opacity: .6;
+}
+.btn-primary {
+	background-color: var(--mycolor) !important;
+	border-color: var(--mycolor) !important;
+}
+.page-item.active .page-link {
+	background-color: var(--mycolor) !important;
+	border-color: var(--mycolor) !important;
+}
+.nav-tabs .nav-link.active {
+    border-color: var(--mycolor) !important;
+	color: var(--mycolor) !important;
+}
+.page-link:hover {
+	color: var(--mycolor);
+}
+
+ul.pagination > li.active:hover{
+	color: #fff !important;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: var(--mycolor) !important;
+}
+
+.form-control:focus {
+	border-color: var(--mycolor) !important;
+}
+//jdfoto
+.jdfoto{	
+	width: 3rem !important;
+	height: 4.97rem !important;
+}
+//grfoto
+.grfoto{
+	top: 0px;
+	width: 4rem !important;
+	height: 5.65rem !important;
+	position: absolute;
+	left: -64px;
+	z-index: 9;
+}
+.grfoto:hover {
+  box-shadow: 0 0 2px 1px var(--mycolor);
+}
+//active a href 
+.notactive {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  opacity: 0.2;
+}
+// dadasdas
+.detailsiswa{
+  width: 200px !important;
+  height: 300px !important;
+  background-position-y: 0px !important;
+  margin-left: -10px;
+  box-shadow: 0 10px 10px rgba(0,0,0,0.22);
+}
+// card header modal
+.detail-header{
+  min-height: 2.5rem !important;
+}
+.detail-body{
+  padding: 0px !important;
+}
+//-----------
+.header-brand {
+  color: inherit;
+  margin-right: 1rem;
+  font-size: 1rem;
+  white-space: nowrap;
+  font-weight: 600;
+  padding: 0;
+  transition: opacity .3s;
+  line-height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header-brand-img {
+  height: 40px;
+  line-height: 2rem;
+  margin-right: .5rem;
+  width: auto;
+}

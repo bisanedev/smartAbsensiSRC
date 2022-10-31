@@ -1,0 +1,25 @@
+100 ICON    "main.ico"
+100 24      "main.exe.manifest"
+1 VERSIONINFO
+FILEVERSION     1,0,0,0
+PRODUCTVERSION  1,0,0,0
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "080904E4"
+    BEGIN
+      VALUE "CompanyName", "bisanedev"
+      VALUE "FileDescription", "Aplikasi Absensi Sekolah"
+      VALUE "FileVersion", "1.0"
+      VALUE "InternalName", "server"
+      VALUE "LegalCopyright", "Smart Absensi"
+      VALUE "OriginalFilename", "server.exe"
+      VALUE "ProductName", "Smart Absensi"
+      VALUE "ProductVersion", "1.0"
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x809, 1252
+  END
+END

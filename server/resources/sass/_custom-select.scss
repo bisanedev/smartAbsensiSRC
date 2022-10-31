@@ -1,0 +1,44 @@
+.jadwalabsen{
+	overflow-y: scroll;	
+	height: 238px;
+	margin-top: 30px;	
+	.jadwalabsen-card{
+		opacity:0.5;	
+		cursor: pointer;
+		width: 308px;
+		margin: auto;
+		margin-bottom: 11px;
+		display: flex;
+		.foto {
+			width: 3rem !important;
+			height: 4.9rem !important;	    
+		    background-position-y: 0px !important;
+		}
+		.jadwalabsen-konten{
+			display: inline;
+			margin: auto;
+			.jadwalabsen-guru{
+				font-size: 16px;
+				font-weight: bold;
+				color: #fff;
+				text-align: center;
+			}	
+			.jadwalabsen-waktu{
+				font-size: 13px;
+				font-weight: normal;
+				color: #fff;
+				text-align: center;
+			}
+		}		
+	}
+	.change{
+		opacity: 1 !important;
+	}
+}
+.jadwalabsen-null{
+	height: 138px;
+	text-align: center;
+	margin-top: 130px;
+	font-size: 18px;
+	font-weight: bold;	
+}

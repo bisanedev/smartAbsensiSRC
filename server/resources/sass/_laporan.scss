@@ -1,0 +1,168 @@
+.laporan-absensi{
+	float: left;
+    width: 100%;    
+    display: table;	
+    .laporan-header{		
+		display: table-row;
+		.nama{
+			width: 19%;
+			text-align: center;
+			display: table-cell;
+			line-height: 3em;
+			font-size: 11px;
+			color: #fff;
+			font-weight: 600;
+			background-color: var(--mycolor);
+		}
+		.hari {
+			background-color: var(--mycolor);
+			.item{
+				display: table-cell;
+				width: 31px;
+				text-align: center;
+				line-height: 3em;
+				font-size: 11px;
+				color: #fff;
+				border-left:#e8e8e8;
+    			border-left-style: solid;
+				border-left-width: 0.01em;  			   
+			}
+		}
+	}
+	.data-laporan{
+		display: table-row;
+		.data-nama{
+			width: 19%;
+			display: table-cell;
+			line-height: 1em;
+			font-size: 12px;			
+			border-bottom:#e8e8e8;
+    		border-bottom-style: solid;
+			border-bottom-width: 0.01em;  
+			padding: 0 0 0 8px;	
+			p.no{				
+				display: inline-block; 
+				font-weight: 800;
+				margin-bottom: 0 !important;
+			}
+			p.nama{
+				text-transform: capitalize;				
+				margin-left:5px;
+				display: inline-block;
+				font-weight: 500;
+				margin-bottom: 0 !important;
+			}
+		}
+		.data-hari{
+			.data-item{
+				display: table-cell;
+				width: 31px;
+				text-align: center;
+				line-height: 1.5em;						
+				border-left:#e8e8e8;
+    			border-left-style: solid;
+				border-left-width: 0.01em;
+				border-bottom:#e8e8e8;
+    			border-bottom-style: solid;
+				border-bottom-width: 0.01em;
+				a {
+					display: inline;
+					font-size: 11px;
+					font-weight: bold;
+				}
+			}
+		}			
+	}
+}
+
+.laporan-null{
+	display: table-row;	
+	text-align: center;
+	background-color: #f9f9f9;
+	font-size: xx-large;
+	font-weight: 600;
+	width: 100%;
+	line-height: 12;
+	div{
+		display: table-cell;
+		  		  		
+	}	
+}
+
+// laporan clock
+.laporan-clock{
+	.laporan-clock-title{
+		font-family: Calibri;
+		color: var(--mycolor);
+		background-color: #fff;
+		display: flex;
+		h3{
+			margin: auto;
+		}
+		.tahunbulan{
+			width: 11%;
+			.bulan{
+				text-align: center;
+				margin-bottom: 0px;
+				border-left-style: solid;
+				border-left-color:#e8e8e8;
+				border-left-width: 0.01em;
+				padding: 8px;
+			}
+			.tahun{
+				text-align: center;
+				margin-bottom: 0px;
+				border-top-style: solid;
+				border-top-width: 0.01em;
+				border-top-color:#e8e8e8;
+				padding: 8px;
+				border-left-style: solid;
+				border-left-color:#e8e8e8;
+				border-left-width: 0.01em;
+			}
+		}
+	}
+	.laporan-clock-body{
+		font-family: Calibri;
+		.laporan-clock-user{
+			.clock-nama{
+				font-size: 16px;
+				text-align: center;
+				font-weight: 700;
+				background: var(--mycolor);
+				color:white;
+				height: 46px;
+				align-content: center;
+				display: grid;
+			}
+			.clock-tanggal{				
+				display: flex;				
+				div{
+					border-right-color:#e8e8e8;
+					border-right-style: solid;
+					border-right-width: 0.1em;
+					border-bottom-color:#e8e8e8;
+					border-bottom-style: solid;
+					border-bottom-width: 0.1em;
+					font-size: 15px;
+					font-weight: bold;
+					width: 38px;
+					text-align: center;
+					border-color:#e8e8e8;
+				}						
+			}
+			.clock-item{
+				display: flex;
+				div.item{					
+					border-right-color:#e8e8e8;
+					border-right-style: solid;
+					border-right-width: 0.1em;
+					width: 38px;
+					font-size: 12px;
+					font-weight: bold;
+					text-align: center;
+				}
+			}
+		}
+	}
+}

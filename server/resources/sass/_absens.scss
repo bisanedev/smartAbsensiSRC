@@ -1,0 +1,83 @@
+.card-overflow{
+	overflow: auto;
+	flex-grow: 1;
+	background-color:#f2f1f1;
+	left: 0;
+	width: 820px;		
+	right: 0;
+	margin: auto;
+}
+.card-absen{
+	padding: 0px !important;
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	top: 58px;
+	bottom: 58px;
+	left: 0px;
+	width: 820px;	
+	right: 0;
+	margin: auto;
+}
+.siswacards{
+	margin:auto;
+	width: 60%;	
+	border-width: 1px;
+	border-color: #e6e6e6;
+	background: #fff;
+	text-align: center;	
+	margin-bottom: 8px;
+	margin-top: 8px;
+	border-style: solid;
+}
+.pic{
+	width: 4rem !important;
+	height: 5.8rem !important;
+}
+.bottomfixed{
+	background-color:#f9f9f9 !important;
+	margin:auto;
+	left:0px;
+	right:0;
+	padding:10px;
+	width:820px;
+	position: fixed;
+	bottom: 0px;
+	border-top: 1px solid rgba(0, 40, 100, 0.12);
+}
+.tombolabsen{
+	float: right;	
+	letter-spacing: 0em !important;
+}
+.pilih{
+	-webkit-box-flex: 0;
+	flex: 0 0 18.4%;
+	max-width: 18.4%;	
+	align-items: center;
+  	display: flex;
+  	justify-content: center;
+}
+.dow:after {
+  content: "";
+  display: table;
+  clear: both;
+  position: absolute;
+}
+.kolumn {
+  float: left;
+  width: 11%;
+  text-align: center;
+  height: 1px;
+}
+.urut-absen{
+  color: black;
+  font-weight: bold;
+  width: 20px;
+  position: absolute;
+  bottom: 0;  
+  background: white;
+}
+.namaAbsen{
+	font-size: medium;
+	text-transform: capitalize;
+}

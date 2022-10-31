@@ -1,0 +1,51 @@
+.rekaplist{
+	overflow-y: scroll;
+	height: 540px;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color:rgb(230, 230, 230);	
+	.rekaplist-item{
+		display: flex;
+		justify-content: space-between;
+		padding: 8px;
+		border-bottom-color: rgb(230, 230, 230);
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
+		.rekaplist-data{
+		 width: 300px;
+		}
+	}
+}
+
+.rincianData{
+	display: flex;
+	border-bottom-color: rgb(230, 230, 230);
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	background-color:#eaeaea;
+	.rinciFoto{
+		width: 8rem !important;
+		height: 11.8rem !important;
+	}
+	.rincian-user{
+		text-align: center;
+		margin: auto;
+	}
+}
+.rincianPie{
+	padding: 30px;
+}
+.rekapDataKosong{
+	text-align: center;
+	background-color:#f9f9f9;
+	height: 300px;
+	display: grid;
+	align-content: center;
+}
+.rincianDataKosong{
+	text-align: center;	
+	background-color:#f9f9f9;
+	height: 333px;
+	display: grid;
+	align-content: center;
+}
