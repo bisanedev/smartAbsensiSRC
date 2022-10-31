@@ -5,9 +5,9 @@ import (
 	"github.com/gin-gonic/contrib/static"
 	"gopkg.in/olahol/melody.v1"	
 	"../controllers"
-    "github.com/elazarl/go-bindata-assetfs"      
-    "net/http"
-    "strings"
+    // assetfs "github.com/elazarl/go-bindata-assetfs"      
+    // "net/http"
+    // "strings"
 )
 
 func InitRouter() *gin.Engine {	
@@ -20,9 +20,8 @@ func InitRouter() *gin.Engine {
 	// relese mode
 	gin.SetMode(gin.ReleaseMode)
 	// index webapp
-	router.Use(static.Serve("/", BinaryFileSystem("public")))			
-	
-	//router.Use(static.Serve("/", static.LocalFile("./public", true))) 	
+	//router.Use(static.Serve("/", BinaryFileSystem("public")))		
+	router.Use(static.Serve("/", static.LocalFile("./public", true))) 	
 	// auth	
 	AuthJwt := new(controllers.AuthJwt)
 	Users := new(controllers.Users)
@@ -142,28 +141,28 @@ func InitRouter() *gin.Engine {
 
 // ---- asset to bytes
 
-type binaryFileSystem struct {
-    fs http.FileSystem
-}
+// type binaryFileSystem struct {
+//     fs http.FileSystem
+// }
 
-func (b *binaryFileSystem) Open(name string) (http.File, error) {
-    return b.fs.Open(name)
-}
+// func (b *binaryFileSystem) Open(name string) (http.File, error) {
+//     return b.fs.Open(name)
+// }
 
-func (b *binaryFileSystem) Exists(prefix string, filepath string) bool {
+// func (b *binaryFileSystem) Exists(prefix string, filepath string) bool {
 
-    if p := strings.TrimPrefix(filepath, prefix); len(p) < len(filepath) {
-        if _, err := b.fs.Open(p); err != nil {
-            return false
-        }
-        return true
-    }
-    return false
-}
+//     if p := strings.TrimPrefix(filepath, prefix); len(p) < len(filepath) {
+//         if _, err := b.fs.Open(p); err != nil {
+//             return false
+//         }
+//         return true
+//     }
+//     return false
+// }
 
-func BinaryFileSystem(root string) *binaryFileSystem {
-    fs := &assetfs.AssetFS{Asset, AssetDir, AssetInfo, root}
-    return &binaryFileSystem{
-        fs,
-    }
-}
+// func BinaryFileSystem(root string) *binaryFileSystem {
+//     fs := &assetfs.AssetFS{Asset, AssetDir, AssetInfo, root}
+//     return &binaryFileSystem{
+//         fs,
+//     }
+// }
